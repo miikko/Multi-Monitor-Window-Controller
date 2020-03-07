@@ -44,7 +44,8 @@ class Application(tk.Frame):
             text="You can toggle GUI visibilty by pressing Ctrl + Alt + P",
         ).pack(pady=(10, 10))
         tk.Label(
-            self, text="Monitors are numbered starting from left."
+            self,
+            text="Monitors are numbered the same way as can be seen in Windows Display Settings.",
         ).pack()
         self.mon_selector_dropdown = tk.ttk.Combobox(
             self,
@@ -91,12 +92,10 @@ class Application(tk.Frame):
 
 if __name__ == "__main__":
     proc_manager = ProcessManager()
-    proc_settings_manager = ProcessSettingsManager(
-        "settings/proc_settings.json"
-    )
+    proc_settings_manager = ProcessSettingsManager("proc_settings.json")
     proc_settings_manager.load_settings()
     mon_settings_manager = MonitoringSettingsManager(
-        "settings/monitoring_settings.json"
+        "monitoring_settings.json"
     )
     mon_settings_manager.load_settings()
     root = tk.Tk()
