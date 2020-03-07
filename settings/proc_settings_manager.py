@@ -20,7 +20,7 @@ from settings.settings_manager import SettingsManager
 """
 
 
-class ProcSettingsManager(SettingsManager):
+class ProcessSettingsManager(SettingsManager):
     def __init__(self, settings_file_path):
         super().__init__(settings_file_path)
 

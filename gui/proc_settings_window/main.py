@@ -1,12 +1,12 @@
 import tkinter as tk
 import copy
-from gui.settings_window.containers.cursor_event_container import (
+from gui.proc_settings_window.containers.cursor_event_container import (
     CursorEventContainer,
 )
-from gui.settings_window.containers.program_selection_container import (
+from gui.proc_settings_window.containers.program_selection_container import (
     ProgramSelectionContainer,
 )
-from gui.settings_window.containers.window_action_container import (
+from gui.proc_settings_window.containers.window_action_container import (
     WindowActionContainer,
 )
 
