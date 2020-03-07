@@ -1,6 +1,6 @@
 # Multi-Monitor Window Controller for Windows OS
 
-![Picture displaying the GUI](https://github.com/miikko/Multi-Monitor-Window-Controller/tree/master/pictures/gui_picture.png "Picture displaying the GUI")
+![Picture displaying the GUI](https://github.com/miikko/Multi-Monitor-Window-Controller/tree/master/pictures/gui_picture.PNG "Picture displaying the GUI")
 
 ## Features
 
