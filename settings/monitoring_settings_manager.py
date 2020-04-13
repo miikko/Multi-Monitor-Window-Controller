@@ -3,13 +3,12 @@ from settings.settings_manager import SettingsManager
 """ MONITORING_SETTINGS.JSON FILE STRUCTURE
 {
  MonitoringIntervalSecs: 0.1,
- IntervalsBeforeProcCacheRefresh: 10 
+ IntervalsBeforeProcCacheRefresh: 10
 }
 """
 
 DEFAULT_INTERVAL_VALUE = 5
 DEFAULT_PROC_CACHE_REFRESH_RATE = 10
-DEFAULT_AUTOSTART = True
 
 
 class MonitoringSettingsManager(SettingsManager):

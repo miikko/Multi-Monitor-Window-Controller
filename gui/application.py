@@ -5,8 +5,10 @@ from monitor_manager import get_monitors
 from process_manager import ProcessManager
 from gui.proc_settings_window.main import SettingsWindow
 from gui.mon_settings_container import MonitoringSettingsContainer
+from gui.gui_settings_container import GUISettingsContainer
 from settings.proc_settings_manager import ProcessSettingsManager
 from settings.monitoring_settings_manager import MonitoringSettingsManager
+from settings.gui_settings_manager import GUISettingsManager
 from background_task import execute_task
 from gui_visibility_handler import GUIVisibilityHandler
 
@@ -17,6 +19,8 @@ class Application(tk.Frame):
         proc_manager,
         proc_settings_manager,
         mon_settings_manager,
+        gui_settings_manager,
+        gui_visibility_handler,
         width,
         height,
         master=None,
@@ -26,7 +30,10 @@ class Application(tk.Frame):
         self.proc_manager = proc_manager
         self.proc_settings_manager = proc_settings_manager
         self.mon_settings_manager = mon_settings_manager
+        self.gui_settings_manager = gui_settings_manager
+        self.gui_visibility_handler = gui_visibility_handler
         self.master = master
+        self.master.protocol("WM_DELETE_WINDOW", self.handle_window_close)
         self.pack(fill="both", expand=True)
         self.create_widgets()
         self.master.geometry(f"{width}x{height}")
@@ -37,6 +44,12 @@ class Application(tk.Frame):
             self.mon_settings_manager, master=self
         )
         self.mon_settings_container.pack()
+        GUISettingsContainer(
+            self.gui_settings_manager, master=self
+        ).pack()
+
+    def handle_window_close(self):
+        self.gui_visibility_handler.hide_gui()
 
     def create_monitor_selection_section(self):
         tk.Label(
@@ -98,6 +111,8 @@ if __name__ == "__main__":
         "monitoring_settings.json"
     )
     mon_settings_manager.load_settings()
+    gui_settings_manager = GUISettingsManager("gui_settings.json")
+    gui_settings_manager.load_settings()
     root = tk.Tk()
     background_thread = Thread(
         target=execute_task,
@@ -105,14 +120,18 @@ if __name__ == "__main__":
         daemon=True,
     )
     background_thread.start()
+    gui_visibility_handler = GUIVisibilityHandler(root, "ctrl+alt+P")
     app = Application(
         proc_manager,
         proc_settings_manager,
         mon_settings_manager,
+        gui_settings_manager,
+        gui_visibility_handler,
         800,
         400,
         master=root,
     )
+    if not gui_settings_manager.get_gui_start_visibility():
+        gui_visibility_handler.hide_gui()
     root.title("Multi-monitor Window Manager For Windows OS")
-    GUIVisibilityHandler(root, "ctrl+alt+P")
     app.mainloop()
